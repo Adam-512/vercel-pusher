@@ -14,9 +14,9 @@ export default async function getImg(req: VercelRequest, res: VercelResponse) {
             cluster: "ap1",
             useTLS: true
         });
-        pusher.trigger(body.orderNo, "transfer", {
-            message: body
-        });
-        res.status(200).end()
+
+        await pusher.trigger("my-channel", "transfer-nws-ido", body);
+
+        res.status(200).send(body)
     }
 }
